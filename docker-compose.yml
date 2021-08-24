@@ -1,0 +1,25 @@
+version: "3.2"
+services:
+  compiler-explorer:
+    build: .
+    entrypoint: ["make", "--directory", "/app/compiler-explorer", "run"]
+    ports:
+      - "10240:10240"
+    volumes:
+      - type: bind
+        source: /home/tim/compiler-explorer/etc
+        target: /app/compiler-explorer/etc
+        read_only: true
+      - type: bind
+        source: /home/tim/compiler-explorer/examples
+        target: /app/compiler-explorer/examples
+        read_only: true
+      - type: bind
+        source: /home/tim/compiler-explorer/views/resources
+        target: /app/compiler-explorer/views/resources
+        read_only: true
+      - type: bind
+        source: /opt/compiler-explorer
+        target: /opt/compiler-explorer
+        read_only: true
+    restart: unless-stopped
