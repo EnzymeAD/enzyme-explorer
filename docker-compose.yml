@@ -1,6 +1,7 @@
 version: "3.2"
 services:
   compiler-explorer:
+    image: ghcr.io/tgymnich/compiler-explorer-docker:latest
     build: .
     entrypoint: ["make", "--directory", "/app/compiler-explorer", "run"]
     ports:
