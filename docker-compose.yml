@@ -4,18 +4,23 @@ services:
     image: ghcr.io/tgymnich/compiler-explorer-docker:latest
     entrypoint: ["make", "--directory", "/app/compiler-explorer", "run"]
     ports:
-      - "10240:10240"
+      - "80:10240"
     volumes:
       - type: bind
-        source: /home/tim/compiler-explorer/etc
+        source: /home/ubuntu/compiler-explorer/etc
         target: /app/compiler-explorer/etc
         read_only: true
       - type: bind
-        source: /home/tim/compiler-explorer/examples
+        source: /home/ubuntu/compiler-explorer/lib/shortener
+        target: /app/compiler-explorer/lib/shortener
+        type: bind
+        read_only: true
+      - type: bind
+        source: /home/ubuntu/compiler-explorer/examples
         target: /app/compiler-explorer/examples
         read_only: true
       - type: bind
-        source: /home/tim/compiler-explorer/views/resources
+        source: /home/ubuntu/compiler-explorer/views/resources
         target: /app/compiler-explorer/views/resources
         read_only: true
       - type: bind
