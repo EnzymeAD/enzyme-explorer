@@ -5,7 +5,7 @@ EXPOSE 10240
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y curl \ 
-    && curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+    && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get update && apt-get install -y --no-install-recommends nodejs git make binutils build-essential \
     && apt-get autoremove -y --purge \
     && apt-get clean -y \
@@ -18,8 +18,7 @@ USER compiler
 RUN mkdir -p /app/compiler-explorer
 WORKDIR /app/compiler-explorer
 
-RUN curl -L https://github.com/compiler-explorer/compiler-explorer/tarball/main | tar xz -C /app/compiler-explorer --strip-components=1 \
-    && make webpack
+RUN curl -L https://github.com/compiler-explorer/compiler-explorer/tarball/main | tar xz -C /app/compiler-explorer --strip-components=1
 
 ENV DEBIAN_FRONTEND=
 
