@@ -18,7 +18,7 @@ USER compiler
 RUN mkdir -p /app/compiler-explorer
 WORKDIR /app/compiler-explorer
 
-RUN curl -L https://github.com/compiler-explorer/compiler-explorer/tarball/main | tar xz -C /app/compiler-explorer --strip-components=1
+RUN curl -L https://github.com/compiler-explorer/compiler-explorer/tarball/main | tar xz -C /app/compiler-explorer --strip-components=1 && make prereqs
 
 ENV DEBIAN_FRONTEND=
 
