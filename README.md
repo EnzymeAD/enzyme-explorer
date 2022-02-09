@@ -1,3 +1,3 @@
 # compiler-explorer-docker
 
-Docker scripts used to deploy enzyme explorer
+Docker scripts and build script used to deploy enzyme explorer
