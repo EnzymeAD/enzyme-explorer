@@ -1,14 +1,15 @@
 #!/bin/bash
 
+# Compilers are located under /opt/compiler-explorer/ 
 declare -a compilers=("clang-7.1.0" "clang-8.0.1" "clang-9.0.1" "clang-10.0.1" "clang-11.0.1" "clang-12.0.1" "clang-13.0.0")
 declare -a branches=("main")
 
-
+# Utility to insert or update key value pairs in .properties files.
 setProperty () {
 
-filename=$3
 thekey=$1
 newvalue=$2
+filename=$3
 
 if ! grep -R "^[#]*\s*${thekey}=.*" $filename > /dev/null; then
   echo "APPENDING because '${thekey}' not found"
@@ -21,7 +22,7 @@ else
 fi
 
 }
-
+# Create config files in a temporary directory
 cp -a /home/ubuntu/compiler-explorer/etc/config/. /tmp/ce/
 
 for branch in ${branches[@]}; do
@@ -66,15 +67,18 @@ for branch in ${branches[@]}; do
 
 		mkdir -p /tmp/build/$branch/$compiler
  		
+		# Checkout Enzyme
 		git -C /home/ubuntu/Enzyme checkout $branch
 		git -C /home/ubuntu/Enzyme fetch
 		git -C /home/ubuntu/Enzyme reset --hard origin/$branch
 
 		commit=$(git -C /home/ubuntu/Enzyme rev-parse --short=7 HEAD)
 
+		# Build Enzyme
 		cmake -G Ninja -B /tmp/build/$branch/$compiler -S /home/ubuntu/Enzyme/enzyme -DCMAKE_BUILD_TYPE=Debug -DLLVM_DIR=/opt/compiler-explorer/$compiler/lib/cmake/llvm
 		cmake --build /tmp/build/$branch/$compiler
 		
+		# Create directories if they don't already exists and copy built plugins.
 		mkdir -p /opt/compiler-explorer/$branch
 		
 		cp /tmp/build/$branch/$compiler/Enzyme/ClangEnzyme-$version.so /opt/compiler-explorer/$branch/ClangEnzyme-$version.so
@@ -114,4 +118,5 @@ for branch in ${branches[@]}; do
 	done
 done
 
+# Move finished config file to the final location
 cp -a /tmp/ce/. /home/ubuntu/compiler-explorer/etc/config/
