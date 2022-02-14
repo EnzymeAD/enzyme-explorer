@@ -118,5 +118,5 @@ for branch in ${branches[@]}; do
 	done
 done
 
-# Move finished config file to the final location
+# Move finished config files to the final location
 cp -a /tmp/ce/. /home/ubuntu/compiler-explorer/etc/config/
