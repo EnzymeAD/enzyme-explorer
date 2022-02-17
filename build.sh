@@ -2,7 +2,7 @@
 
 # Compilers are located under /opt/compiler-explorer/ 
 declare -a compilers=("clang-7.1.0" "clang-8.0.1" "clang-9.0.1" "clang-10.0.1" "clang-11.0.1" "clang-12.0.1" "clang-13.0.0")
-declare -a branches=("main")
+declare -a branches=("main" "experimental")
 
 # Utility to insert or update key value pairs in .properties files.
 setProperty () {
@@ -24,6 +24,11 @@ fi
 }
 # Create config files in a temporary directory
 cp -a /home/ubuntu/compiler-explorer/etc/config/. /tmp/ce/
+
+setProperty "compilers" "&clang-enzyme-main:&clang-enzyme-experimental" "/tmp/ce/c++.local.properties"
+setProperty "compilers" "&clang-enzyme-main:&clang-enzyme-experimental" "/tmp/ce/c.local.properties"
+setProperty "compilers" "&opt-enzyme-main:&opt-enzyme-experimental:&clang-enzyme-main:&clang-enzyme-experimental" "/tmp/ce/llvm.local.properties"
+
 
 for branch in ${branches[@]}; do
 
