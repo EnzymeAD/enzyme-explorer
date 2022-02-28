@@ -25,10 +25,6 @@ fi
 # Create config files in a temporary directory
 cp -a /home/ubuntu/compiler-explorer/etc/config/. /tmp/ce/
 
-setProperty "compilers" "&clang-enzyme-main:&clang-enzyme-experimental" "/tmp/ce/c++.local.properties"
-setProperty "compilers" "&clang-enzyme-main:&clang-enzyme-experimental" "/tmp/ce/c.local.properties"
-setProperty "compilers" "&opt-enzyme-main:&opt-enzyme-experimental:&clang-enzyme-main:&clang-enzyme-experimental" "/tmp/ce/llvm.local.properties"
-
 
 for branch in ${branches[@]}; do
 
