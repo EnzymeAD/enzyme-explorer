@@ -15,11 +15,9 @@ services:
       - type: bind
         source: /home/ubuntu/compiler-explorer/lib/shortener
         target: /app/compiler-explorer/lib/shortener
+        type: bind
         read_only: true
-      - type: bind
-        source: /home/ubuntu/compiler-explorer/views/_layout.pug
-        target: /app/compiler-explorer/views/_layout.pug
-        read_only: true
+      - /home/ubuntu/compiler/explorer/views/_layout.pug:/app/compiler-explorer/views/_layout.pug
       - type: bind
         source: /home/ubuntu/compiler-explorer/examples
         target: /app/compiler-explorer/examples
