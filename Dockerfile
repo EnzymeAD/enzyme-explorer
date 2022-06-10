@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y curl \
 
 USER compiler
 
-RUN git clone -b main --single-branhch https://github.com/compiler-explorer/compiler-explorer/tarball/main /app/compiler-explorer && make -C /app/compiler-explorer prereqs
+RUN git clone -b main --single-branhch https://github.com/compiler-explorer/compiler-explorer /app/compiler-explorer && make -C /app/compiler-explorer prereqs
 
 WORKDIR /app/compiler-explorer
 
