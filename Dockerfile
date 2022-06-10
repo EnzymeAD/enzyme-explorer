@@ -15,10 +15,9 @@ RUN apt-get update && apt-get install -y curl \
 
 USER compiler
 
-RUN mkdir -p /app/compiler-explorer
-WORKDIR /app/compiler-explorer
+RUN git clone -b main --single-branhch https://github.com/compiler-explorer/compiler-explorer/tarball/main /app/compiler-explorer && make -C /app/compiler-explorer prereqs
 
-RUN curl -L https://github.com/compiler-explorer/compiler-explorer/tarball/main | tar xz -C /app/compiler-explorer --strip-components=1 && make prereqs
+WORKDIR /app/compiler-explorer
 
 ENV DEBIAN_FRONTEND=
 

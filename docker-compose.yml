@@ -2,9 +2,6 @@ version: "3.2"
 services:
   compiler-explorer:
     image: ghcr.io/enzymead/enzyme-explorer:latest
-    environment:
-      - NODE_ENV=production
-    entrypoint: ["make", "--directory", "/app/compiler-explorer", "run"]
     ports:
       - "80:10240"
     volumes:
@@ -25,8 +22,8 @@ services:
         target: /app/compiler-explorer/examples
         read_only: true
       - type: bind
-        source: /home/ubuntu/compiler-explorer/views/resources
-        target: /app/compiler-explorer/views/resources
+        source: /home/ubuntu/compiler-explorer/views/resources/site-logo.svg
+        target: /app/compiler-explorer/views/resources/site-logo.svg
         read_only: true
       - type: bind
         source: /opt/compiler-explorer
