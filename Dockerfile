@@ -22,5 +22,5 @@ RUN curl -L https://github.com/compiler-explorer/compiler-explorer/tarball/main 
 
 ENV DEBIAN_FRONTEND=
 
-ENTRYPOINT ["make"]
+ENTRYPOINT [ "make" ]
 CMD [ "run" ]
