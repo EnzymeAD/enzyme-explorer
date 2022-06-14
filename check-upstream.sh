@@ -2,7 +2,7 @@
 
 git -C /home/ubuntu/Enzyme fetch
 
-declare -a branches=("main" "experimental")
+declare -a branches=("main")
 
 
 for branch in ${branches[@]}; do

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compilers are located under /opt/compiler-explorer/ 
-declare -a compilers=("clang-7.1.0" "clang-8.0.1" "clang-9.0.1" "clang-10.0.1" "clang-11.0.1" "clang-12.0.1" "clang-13.0.1" "clang-14.0.0")
+declare -a compilers=("clang-7.1.0" "clang-8.0.1" "clang-9.0.1" "clang-10.0.1" "clang-11.0.1" "clang-12.0.1" "clang-13.0.1" "clang-14.0.0" "clang-assertions-trunk")
 declare -a branches=("main")
 
 # Utility to insert or update key value pairs in .properties files.
@@ -28,10 +28,10 @@ cp -a /home/ubuntu/compiler-explorer/etc/config/. /tmp/ce/
 
 for branch in ${branches[@]}; do
 
-	setProperty "group.clang-enzyme-$branch.compilers" "clang7-enzyme-$branch:clang8-enzyme-$branch:clang9-enzyme-$branch:clang10-enzyme-$branch:clang11-enzyme-$branch:clang12-enzyme-$branch:clang13-enzyme-$branch:clang14-enzyme-$branch" "/tmp/ce/c++.local.properties"
-	setProperty "group.clang-enzyme-$branch.compilers" "cclang7-enzyme-$branch:cclang8-enzyme-$branch:cclang9-enzyme-$branch:cclang10-enzyme-$branch:cclang11-enzyme-$branch:cclang12-enzyme-$branch:cclang13-enzyme-$branch:cclang14-enzyme-$branch" "/tmp/ce/c.local.properties"
-        setProperty "group.clang-enzyme-$branch.compilers" "irclang7-enzyme-$branch:irclang8-enzyme-$branch:irclang9-enzyme-$branch:irclang10-enzyme-$branch:irclang11-enzyme-$branch:irclang12-enzyme-$branch:irclang13-enzyme-$branch:irclang14-enzyme-$branch" "/tmp/ce/llvm.local.properties"
-	setProperty "group.opt-enzyme-$branch.compilers" "opt7-enzyme-$branch:opt8-enzyme-$branch:opt9-enzyme-$branch:opt10-enzyme-$branch:opt11-enzyme-$branch:opt12-enzyme-$branch:opt13-enzyme-$branch:opt14-enzyme-$branch" "/tmp/ce/llvm.local.properties"
+	setProperty "group.clang-enzyme-$branch.compilers" "clang7-enzyme-$branch:clang8-enzyme-$branch:clang9-enzyme-$branch:clang10-enzyme-$branch:clang11-enzyme-$branch:clang12-enzyme-$branch:clang13-enzyme-$branch:clang14-enzyme-$branch:clang15-enzyme-$branch" "/tmp/ce/c++.local.properties"
+	setProperty "group.clang-enzyme-$branch.compilers" "cclang7-enzyme-$branch:cclang8-enzyme-$branch:cclang9-enzyme-$branch:cclang10-enzyme-$branch:cclang11-enzyme-$branch:cclang12-enzyme-$branch:cclang13-enzyme-$branch:cclang14-enzyme-$branch:cclang15-enzyme-$branch" "/tmp/ce/c.local.properties"
+        setProperty "group.clang-enzyme-$branch.compilers" "irclang7-enzyme-$branch:irclang8-enzyme-$branch:irclang9-enzyme-$branch:irclang10-enzyme-$branch:irclang11-enzyme-$branch:irclang12-enzyme-$branch:irclang13-enzyme-$branch:irclang14-enzyme-$branch:irclang15-enzyme-$branch" "/tmp/ce/llvm.local.properties"
+	setProperty "group.opt-enzyme-$branch.compilers" "opt7-enzyme-$branch:opt8-enzyme-$branch:opt9-enzyme-$branch:opt10-enzyme-$branch:opt11-enzyme-$branch:opt12-enzyme-$branch:opt13-enzyme-$branch:opt14-enzyme-$branch:opt15-enzyme-$branch" "/tmp/ce/llvm.local.properties"
 
 	setProperty "group.clang-enzyme-$branch.intelAsm" "-mllvm --x86-asm-syntax=intel" "/tmp/ce/c++.local.properties"
 	setProperty "group.clang-enzyme-$branch.intelAsm" "-mllvm --x86-asm-syntax=intel" "/tmp/ce/c.local.properties"
@@ -63,7 +63,8 @@ for branch in ${branches[@]}; do
 
 
 	for compiler in ${compilers[@]}; do
-		version=$(echo $compiler | grep -o -E '[0-9]+' | head -1 | sed -e 's/^0\+//')
+		version=$(echo $compiler | grep -o -E '[0-9]+|trunk' | head -1 | sed -e 's/^0\+//')
+		if [ "$version" == "trunk" ]; then version="15"; fi
 		semver=$(echo $compiler | sed -e "s/^clang-//" )
 
 		mkdir -p /tmp/build/$branch/$compiler
@@ -76,7 +77,7 @@ for branch in ${branches[@]}; do
 		commit=$(git -C /home/ubuntu/Enzyme rev-parse --short=7 HEAD)
 
 		# Build Enzyme
-		cmake -G Ninja -B /tmp/build/$branch/$compiler -S /home/ubuntu/Enzyme/enzyme -DCMAKE_BUILD_TYPE=Debug -DLLVM_DIR=/opt/compiler-explorer/$compiler/lib/cmake/llvm
+		cmake -G Ninja -B /tmp/build/$branch/$compiler -S /home/ubuntu/Enzyme/enzyme -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DLLVM_DIR=/opt/compiler-explorer/$compiler/lib/cmake/llvm
 		cmake --build /tmp/build/$branch/$compiler
 		
 		# Create directories if they don't already exists and copy built plugins.
@@ -97,7 +98,7 @@ for branch in ${branches[@]}; do
                 setProperty "compiler.irclang$version-enzyme-$branch.options" "-fno-experimental-new-pass-manager  -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/llvm.local.properties"
 		setProperty "compiler.opt$version-enzyme-$branch.options" "--enable-new-pm=0 -load=/opt/compiler-explorer/$branch/LLVMEnzyme-$version.so -enzyme --enzyme-attributor=0" "/tmp/ce/llvm.local.properties"
 		
-		elif [ $version -eq 14 ] 
+		elif [ $version -ge 14 ] 
 		then
 		setProperty "compiler.clang$version-enzyme-$branch.options" "-flegacy-pass-manager -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c++.local.properties"
                	setProperty "compiler.cclang$version-enzyme-$branch.options" "-flegacy-pass-manager -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c.local.properties"
@@ -127,3 +128,5 @@ done
 
 # Move finished config files to the final location
 cp -a /tmp/ce/. /home/ubuntu/compiler-explorer/etc/config/
+
+docker service update enzyme_explorer_compiler-explorer --force

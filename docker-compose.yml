@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3.4"
 services:
   compiler-explorer:
     image: ghcr.io/enzymead/enzyme-explorer:latest
@@ -30,3 +30,30 @@ services:
         target: /opt/compiler-explorer
         read_only: true
     restart: unless-stopped
+    deploy:
+      mode: replicated
+      replicas: 2
+      update_config:
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    healthcheck:
+       test: ["CMD", "curl", "-f", "http://localhost:10240/explorer"]
+       interval: 30s
+       timeout: 10s
+       retries: 3
+       start_period: 210s
+
+# compiler-builder:
+#   image: ubuntu:20.04
+#   volumes:
+#     - type: bind
+#       source: /home/ubuntu/compiler-explorer/etc/config
+#       target: /app/compiler-explorer/etc/config
+#     - type: bind
+#       source: /opt/compiler-explorer
+#       target: /opt/compiler-explorer
+  
