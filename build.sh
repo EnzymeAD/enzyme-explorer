@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compilers are located under /opt/compiler-explorer/ 
-declare -a compilers=("clang-7.1.0" "clang-8.0.1" "clang-9.0.1" "clang-10.0.1" "clang-11.0.1" "clang-12.0.1" "clang-13.0.1" "clang-14.0.0" "clang-assertions-trunk")
+declare -a compilers=("clang-7.1.0" "clang-8.0.1" "clang-9.0.1" "clang-10.0.1" "clang-11.0.1" "clang-12.0.1" "clang-13.0.1" "clang-14.0.0")
 declare -a branches=("main")
 
 # Utility to insert or update key value pairs in .properties files.
@@ -129,4 +129,4 @@ done
 # Move finished config files to the final location
 cp -a /tmp/ce/. /home/ubuntu/compiler-explorer/etc/config/
 
-docker service update enzyme_explorer_compiler-explorer --force
+docker pull ghcr.io/enzymead/enzyme-explorer:latest && docker service update --image ghcr.io/enzymead/enzyme-explorer:latest enzyme_explorer_compiler-explorer
