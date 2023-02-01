@@ -1,7 +1,5 @@
 FROM ubuntu:22.04
 
-EXPOSE 10240
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y curl \ 
@@ -15,11 +13,12 @@ RUN apt-get update && apt-get install -y curl \
 
 USER compiler
 
-RUN git clone -b main --single-branch https://github.com/compiler-explorer/compiler-explorer /app/compiler-explorer && make -C /app/compiler-explorer prereqs
+RUN git clone -b main --single-branch https://github.com/EnzymeAD/compiler-explorer /app/compiler-explorer && make -C /app/compiler-explorer prebuild
 
 WORKDIR /app/compiler-explorer
 
 ENV DEBIAN_FRONTEND=
 
-ENTRYPOINT [ "make" ]
-CMD [ "run" ]
+ENV EXTRA_ARGS="--env enzyme"
+
+ENTRYPOINT ["sh", "-c", "make", "run-only"]

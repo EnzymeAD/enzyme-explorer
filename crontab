@@ -1,1 +1,0 @@
-*/5 * * * * bash /home/ubuntu/enzyme-explorer/check-upstream.sh
