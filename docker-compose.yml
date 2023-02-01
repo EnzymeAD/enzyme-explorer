@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   compiler-explorer:
-    # image: ghcr.io/EnzymeAD/enzyme-explorer:latest
+    image: ghcr.io/EnzymeAD/enzyme-explorer:latest
     build: explorer
     ports:
       - "8080:10240"
@@ -33,8 +33,7 @@ services:
        start_period: 210s
 
   compiler-builder:
-    # image: ghcr.io/EnzymeAD/enzyme-explorer-builder:latest
-    build: builder
+    image: ghcr.io/EnzymeAD/enzyme-explorer-builder:latest
     volumes:
       - type: volume
         source: config
