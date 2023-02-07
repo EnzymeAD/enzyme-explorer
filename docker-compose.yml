@@ -1,38 +1,23 @@
 version: "3.4"
 services:
   compiler-explorer:
-    image: ghcr.io/enzymead/enzyme-explorer:latest
+    image: ghcr.io/EnzymeAD/enzyme-explorer:latest
+    build: explorer
     ports:
-      - "80:10240"
+      - "8080:10240"
     volumes:
-      - type: bind
-        source: /home/ubuntu/compiler-explorer/etc/config
+      - type: volume
+        source: config
         target: /app/compiler-explorer/etc/config
         read_only: true
-      - type: bind
-        source: /home/ubuntu/compiler-explorer/lib/shortener
-        target: /app/compiler-explorer/lib/shortener
-        read_only: true
-      - type: bind
-        source: /home/ubuntu/compiler-explorer/views/_layout.pug
-        target: /app/compiler-explorer/views/_layout.pug
-        read_only: true
-      - type: bind
-        source: /home/ubuntu/compiler-explorer/examples
-        target: /app/compiler-explorer/examples
-        read_only: true
-      - type: bind
-        source: /home/ubuntu/compiler-explorer/views/resources/site-logo.svg
-        target: /app/compiler-explorer/views/resources/site-logo.svg
-        read_only: true
-      - type: bind
-        source: /opt/compiler-explorer
+      - type: volume
+        source: compilers
         target: /opt/compiler-explorer
         read_only: true
     restart: unless-stopped
     deploy:
-      mode: replicated
-      replicas: 2
+      mode: global
+      replicas: 1
       update_config:
         failure_action: rollback
       restart_policy:
@@ -47,13 +32,21 @@ services:
        retries: 3
        start_period: 210s
 
-# compiler-builder:
-#   image: ubuntu:20.04
-#   volumes:
-#     - type: bind
-#       source: /home/ubuntu/compiler-explorer/etc/config
-#       target: /app/compiler-explorer/etc/config
-#     - type: bind
-#       source: /opt/compiler-explorer
-#       target: /opt/compiler-explorer
-  
+  compiler-builder:
+    image: ghcr.io/EnzymeAD/enzyme-explorer-builder:latest
+    volumes:
+      - type: volume
+        source: config
+        target: /app/compiler-explorer/etc/config
+      - type: volume
+        source: compilers
+        target: /opt/compiler-explorer
+    restart: unless-stopped
+    deploy:
+      mode: global
+      update_config:
+        failure_action: rollback
+
+volumes:
+  compilers:
+  config:
