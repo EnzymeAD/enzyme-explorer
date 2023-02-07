@@ -15,8 +15,8 @@ services:
         read_only: true
     restart: unless-stopped
     deploy:
-      mode: global
-      replicas: 1
+      mode: replicated
+      replicas: 2
       update_config:
         failure_action: rollback
       restart_policy:
