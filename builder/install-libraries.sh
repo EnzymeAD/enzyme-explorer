@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+set +e
 
 if /app/infra/bin/ce_install check-installed libraries/c++/boost 1.81.0 | grep "not installed"; then
     /app/infra/bin/ce_install install libraries/c++/boost 1.81.0
