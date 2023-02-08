@@ -4,7 +4,7 @@ env >> /etc/environment
 
 set -x
 
-mv -n /app/template/config /app/compiler-explorer/etc
+mv -f /app/template/config /app/compiler-explorer/etc
 
 source /app/install-compilers.sh
 
