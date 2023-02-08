@@ -52,6 +52,6 @@ if /app/infra/bin/ce_install check-installed compilers/julia 1.8.5 | grep "not i
     /app/infra/bin/ce_install install compilers/julia 1.8.5
 fi
 
-/opt/compiler-explorer/julia 1.8.5/bin/julia -e 'using Pkg; Pkg.add("Enzyme")'
+/opt/compiler-explorer/julia-1.8.5/bin/julia -e 'using Pkg; Pkg.add("Enzyme")'
 
 
