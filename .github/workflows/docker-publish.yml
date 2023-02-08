@@ -5,7 +5,7 @@ on:
 
 jobs:
   push_explorer_to_registry:
-    name: Push Docker image to GitHub Packages
+    name: Push explorer image to GitHub Packages
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -42,7 +42,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: explorer
           push: true
@@ -53,7 +53,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   push_builder_to_registry:
-    name: Push Docker image to GitHub Packages
+    name: Push builder image to GitHub Packages
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -90,7 +90,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: builder
           push: true
