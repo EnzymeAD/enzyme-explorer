@@ -21,4 +21,4 @@ ENV DEBIAN_FRONTEND=
 
 ENV EXTRA_ARGS="--env enzyme"
 
-ENTRYPOINT ["sh", "-c", "make", "run-only"]
+ENTRYPOINT ["sh", "-c", "make", "run-supervisor"]
