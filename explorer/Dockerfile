@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y curl \
 
 USER compiler
 
-RUN git clone -b main --single-branch https://github.com/EnzymeAD/compiler-explorer /app/compiler-explorer && make -C /app/compiler-explorer prebuild
+RUN git clone -b main --single-branch --depth=1 https://github.com/EnzymeAD/compiler-explorer /app/compiler-explorer && make -C /app/compiler-explorer prebuild
 
 WORKDIR /app/compiler-explorer
 

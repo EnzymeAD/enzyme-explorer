@@ -7,10 +7,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl git cron m
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone -b main --single-branch https://github.com/EnzymeAD/compiler-explorer /app/ce \
+RUN git clone -b main --single-branch --depth=1 https://github.com/EnzymeAD/compiler-explorer /app/ce \
     && mkdir -p /app/template && mv /app/ce/etc/config /app/template && rm -rf /app/ce
 
-RUN git clone -b main --single-branch https://github.com/compiler-explorer/infra.git /app/infra && make -C /app/infra ce
+RUN git clone -b main --single-branch --depth=1 https://github.com/compiler-explorer/infra.git /app/infra && make -C /app/infra ce
 
 RUN git clone -b main https://github.com/EnzymeAD/Enzyme.git /app/Enzyme
 
