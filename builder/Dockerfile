@@ -18,7 +18,7 @@ RUN ccache -M 10G
 
 COPY install-compilers.sh /app/install-compilers.sh
 COPY install-libraries.sh /app/install-libraries.sh
-COPY build.sh /app/build.sh
+COPY build-enzyme.sh /app/build-enzyme.sh
 COPY check-upstream.sh /app/check-upstream.sh
 COPY entrypoint.sh /app/entrypoint.sh
 COPY update-explorer.sh /app/update-explorer.sh
@@ -26,7 +26,7 @@ COPY crontab /etc/cron.d/crontab
 
 RUN chmod +x /app/install-libraries.sh \
     && chmod +x /app/install-compilers.sh \
-    && chmod +x /app/build.sh \
+    && chmod +x /app/build-enzyme.sh \
     && chmod +x /app/check-upstream.sh \
     && chmod +x /app/entrypoint.sh \
     && chmod +x /app/update-explorer.sh \

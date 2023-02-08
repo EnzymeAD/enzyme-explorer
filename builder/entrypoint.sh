@@ -10,6 +10,6 @@ source /app/install-compilers.sh
 
 source /app/install-libraries.sh
 
-source /app/build.sh
+source /app/build-enzyme.sh
 
 exec "$@"

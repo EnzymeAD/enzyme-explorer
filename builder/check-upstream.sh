@@ -12,7 +12,7 @@ for branch in ${branches[@]}; do
 
    if [ "$HEADHASH" != "$UPSTREAMHASH" ] 
    then
-      bash /app/build.sh 
+      source /app/build-enzyme.sh
       exit 0
    else
       echo -e ${FINISHED}Current branch is up to date with origin/$branch.${NOCOLOR}
