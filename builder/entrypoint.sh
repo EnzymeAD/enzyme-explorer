@@ -2,7 +2,7 @@
 
 env >> /etc/environment
 
-mv -f /app/template/config /app/compiler-explorer/etc
+mv -f /app/template/config/* /app/compiler-explorer/etc/config
 
 source /app/install-compilers.sh
 
