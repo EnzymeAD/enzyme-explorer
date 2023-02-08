@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 as builder
+FROM ubuntu:18.04 as builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -11,7 +11,7 @@ RUN git clone -b master --single-branch --depth=1 https://github.com/google/nsja
 RUN cd /nsjail && make && mv /nsjail/nsjail /bin && rm -rf -- /nsjail
 
 
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 
 COPY --from=builder /bin/nsjail /bin/nsjail
 
@@ -19,7 +19,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -q && apt-get install -y curl \ 
     && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get update && apt-get install -y --no-install-recommends gcc nodejs git make binutils build-essential \
+    && apt-get update && apt-get install -y --no-install-recommends cgroup-tools gcc nodejs git make binutils build-essential \
     && apt-get autoremove -y --purge \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
