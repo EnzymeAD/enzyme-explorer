@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl git cron moreutils make cmake ccache clang gcc g++ ninja-build binutils python3.10-venv grep build-essential \
+RUN apt-get update && apt-get install -y --no-install-recommends curl git cron moreutils make cmake ccache clang ninja-build binutils python3.10-venv grep build-essential \
     && apt-get autoremove -y --purge \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
