@@ -57,9 +57,9 @@ volumes:
   
 networks:
   internet:
-    driver: bridge
+    driver: overlay
   no-internet:
-    driver: bridge
+    driver: overlay
     internal: true
   
-  \
+ 
