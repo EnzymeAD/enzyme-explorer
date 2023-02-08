@@ -128,3 +128,5 @@ done
 
 # Move finished config files to the final location
 cp -a /tmp/ce/. /app/compiler-explorer/etc/config/
+
+source /app/update-explorer.sh

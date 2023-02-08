@@ -21,6 +21,7 @@ COPY install-libraries.sh /app/install-libraries.sh
 COPY build.sh /app/build.sh
 COPY check-upstream.sh /app/check-upstream.sh
 COPY entrypoint.sh /app/entrypoint.sh
+COPY update-explorer.sh /app/update-explorer.sh
 COPY crontab /etc/cron.d/crontab
 
 RUN chmod +x /app/install-libraries.sh \
@@ -28,7 +29,10 @@ RUN chmod +x /app/install-libraries.sh \
     && chmod +x /app/build.sh \
     && chmod +x /app/check-upstream.sh \
     && chmod +x /app/entrypoint.sh \
+    && chmod +x /app/update-explorer.sh \
     && chmod +x /etc/cron.d/crontab && crontab /etc/cron.d/crontab
+
+COPY --from=docker:23.0.0-dind /usr/local/bin/docker /usr/local/bin/
 
 WORKDIR /app
 

@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3.8"
 services:
   compiler-explorer:
     image: ghcr.io/enzymead/enzyme-explorer:latest
@@ -13,7 +13,6 @@ services:
         source: compilers
         target: /opt/compiler-explorer
         read_only: true
-    restart: unless-stopped
     deploy:
       mode: replicated
       replicas: 2
@@ -24,6 +23,8 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
+      labels:
+        - "explorer"
     healthcheck:
        test: ["CMD", "curl", "-f", "http://localhost:10240/explorer"]
        interval: 30s
@@ -40,7 +41,7 @@ services:
       - type: volume
         source: compilers
         target: /opt/compiler-explorer
-    restart: unless-stopped
+      - "/var/run/docker.sock:/var/run/docker.sock"
     deploy:
       mode: global
       update_config:
