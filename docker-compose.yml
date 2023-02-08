@@ -53,6 +53,7 @@ services:
 
 volumes:
   compilers:
+  config:
   
 networks:
   internet:
