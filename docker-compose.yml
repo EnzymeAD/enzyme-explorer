@@ -13,6 +13,8 @@ services:
         source: compilers
         target: /opt/compiler-explorer
         read_only: true
+    networks:
+      - no-internet
     deploy:
       mode: replicated
       replicas: 2
@@ -42,6 +44,8 @@ services:
         source: compilers
         target: /opt/compiler-explorer
       - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - internet
     deploy:
       mode: global
       update_config:
@@ -49,4 +53,13 @@ services:
 
 volumes:
   compilers:
+  
+networks:
+  internet:
+    driver: bridge
+  no-internet:
+    driver: bridge
+    internal: true
+  
+  
   config:
