@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y curl \
     && apt-get autoremove -y --purge \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
-    && ufw default deny outgoing
+    && ufw default deny outgoing \
     && groupadd -g 999 compiler \
     && useradd -r -u 999 -m -d /app -g compiler compiler
 
