@@ -13,3 +13,6 @@ fi
 if /app/infra/bin/ce_install check-installed libraries/c++/eigen 3.4.0 | grep "not installed"; then
     /app/infra/bin/ce_install install libraries/c++/eigen 3.4.0
 fi
+
+export JULIA_DEPOT_PATH="/opt/compiler-explorer/juliapackages"
+/opt/compiler-explorer/julia-1.8.5/bin/julia -e 'using Pkg; Pkg.add("Enzyme")'

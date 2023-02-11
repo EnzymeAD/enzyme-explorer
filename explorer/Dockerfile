@@ -18,7 +18,7 @@ RUN git clone -b main --single-branch https://github.com/EnzymeAD/compiler-explo
 WORKDIR /app/compiler-explorer
 
 ENV DEBIAN_FRONTEND=
-
+ENV JULIA_DEPOT_PATH=/opt/compiler-explorer/juliapackages
 ENV EXTRA_ARGS="--env enzyme"
 
 ENTRYPOINT ["sh", "-c", "make", "run-only"]
