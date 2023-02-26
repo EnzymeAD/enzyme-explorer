@@ -13,6 +13,10 @@ services:
         source: compilers
         target: /opt/compiler-explorer
         read_only: true
+      - type: volume
+        source: packages
+        target: /opt/compiler-explorer/juliapackages
+        read_only: false
     labels:
       - "explorer"
     deploy:
@@ -43,12 +47,29 @@ services:
       - type: volume
         source: compilers
         target: /opt/compiler-explorer
+      - type: volume
+        source: packages
+        target: /opt/compiler-explorer/juliapackages
+        read_only: false
       - "/var/run/docker.sock:/var/run/docker.sock"
     deploy:
       mode: global
       update_config:
         failure_action: rollback
+  package-proxy:
+    image: nginx:1.23
+    ports:
+      - "8000:8000"
+    deploy:
+      mode: global
+      update_config:
+        failure_action: rollback
+    volumes:
+      - "./package-proxy/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./package-proxy/pkgserver.nginx.conf:/etc/nginx/user_conf.d/pkgserver.nginx.conf:ro"
+
 
 volumes:
   compilers:
   config:
+  packages:
