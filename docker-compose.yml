@@ -54,6 +54,7 @@ services:
       mode: global
       update_config:
         failure_action: rollback
+
   package-proxy:
     image: nginx:1.23
     deploy:

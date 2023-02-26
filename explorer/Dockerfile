@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y curl \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
     && groupadd -g 999 compiler \
-    && useradd -r -u 999 -m -d /app -g compiler compiler
+    && useradd -r -u 999 -m -d /app -g compiler compiler \
+    && chmod 777 /opt/compiler-explorer/juliapackages
 
 USER compiler
 
