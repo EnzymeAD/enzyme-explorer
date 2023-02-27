@@ -14,8 +14,8 @@ services:
         target: /opt/compiler-explorer
         read_only: true
       - type: volume
-        source: packages
-        target: /opt/compiler-explorer/juliapackages
+        source: juliapackages
+        target: /local/juliapackages
     labels:
       - "explorer"
     deploy:
@@ -35,7 +35,7 @@ services:
        interval: 30s
        timeout: 10s
        retries: 3
-       start_period: 210s
+       start_period: 180s
 
   compiler-builder:
     image: ghcr.io/enzymead/enzyme-explorer-builder:latest
@@ -46,9 +46,6 @@ services:
       - type: volume
         source: compilers
         target: /opt/compiler-explorer
-      - type: volume
-        source: packages
-        target: /opt/compiler-explorer/juliapackages
       - "/var/run/docker.sock:/var/run/docker.sock"
     deploy:
       mode: global
@@ -69,9 +66,9 @@ services:
        interval: 30s
        timeout: 10s
        retries: 3
-       start_period: 45s
+       start_period: 40s
 
 volumes:
   compilers:
   config:
-  packages:
+  juliapackages:
