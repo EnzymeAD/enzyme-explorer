@@ -20,7 +20,7 @@ WORKDIR /app/compiler-explorer
 
 ENV DEBIAN_FRONTEND=
 ENV JULIA_DEPOT_PATH=/local/juliapackages:/opt/compiler-explorer/juliapackages
-ENV JULIA_PKG_SERVER=http://package-proxy:8000
+ENV JULIA_PKG_SERVER=http://package-proxy
 ENV EXTRA_ARGS="--env enzyme"
 
 ENTRYPOINT ["sh", "-c", "make", "run-only"]
