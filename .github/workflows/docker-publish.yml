@@ -1,7 +1,9 @@
 name: Publish Docker images
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - '*'
+
 
 jobs:
   push_explorer_to_registry:
