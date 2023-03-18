@@ -1,2 +1,2 @@
 # m h  dom mon dow   command
-*/5 * * * * cronic bash /app/check-upstream.sh
+*/5 * * * * chronic bash /app/check-upstream.sh
