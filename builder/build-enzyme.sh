@@ -11,7 +11,7 @@ thekey=$1
 newvalue=$2
 filename=$3
 
-if ! grep -R "^[#]*\s*${thekey}=.*" $filename > /dev/null; then
+if ! grep "^[#]*\s*${thekey}=.*" $filename > /dev/null; then
   echo "APPENDING because '${thekey}' not found"
   echo "$thekey=$newvalue" >> $filename
 else
