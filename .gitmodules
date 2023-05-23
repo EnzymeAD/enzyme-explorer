@@ -1,0 +1,9 @@
+[submodule "dependencies/compiler-explorer"]
+	path = explorer/compiler-explorer
+	url = https://github.com/EnzymeAD/compiler-explorer.git
+[submodule "builder/compiler-explorer"]
+	path = builder/compiler-explorer
+	url = https://github.com/EnzymeAD/compiler-explorer.git
+[submodule "builder/infra"]
+	path = builder/infra
+	url = https://github.com/compiler-explorer/infra.git
