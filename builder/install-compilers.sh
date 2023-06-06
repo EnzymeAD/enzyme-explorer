@@ -44,6 +44,12 @@ if /app/infra/bin/ce_install check-installed compilers/c++/clang 16.0.0 | grep "
     /app/infra/bin/ce_install install compilers/c++/clang 16.0.0
 fi
 
+# mlir
+
+if /app/infra/bin/ce_install check-installed compilers/c++/mlir 16.0.0 | grep "not installed"; then
+    /app/infra/bin/ce_install install compilers/c++/mlir 16.0.0
+fi
+
 # cuda
 
 if /app/infra/bin/ce_install check-installed compilers/cuda 11.0.2 | grep "not installed"; then
