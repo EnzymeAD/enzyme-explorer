@@ -22,7 +22,10 @@ fi
 
 }
 # Create config files in a temporary directory
-cp -a /app/compiler-explorer/etc/config/. /tmp/ce/
+mkdir -p /tmp/ce
+cp /app/compiler-explorer/etc/config/c++.enzyme.properties /tmp/ce/
+cp /app/compiler-explorer/etc/config/c.enzyme.properties /tmp/ce/
+cp /app/compiler-explorer/etc/config/llvm.enzyme.properties /tmp/ce/
 
 
 for branch in ${branches[@]}; do
@@ -63,7 +66,6 @@ for branch in ${branches[@]}; do
 
 	for compiler in ${compilers[@]}; do
 		version=$(echo $compiler | grep -o -E '[0-9]+|trunk' | head -1 | sed -e 's/^0\+//')
-		if [ "$version" == "trunk" ]; then version="15"; fi
 		semver=$(echo $compiler | sed -e "s/^clang-//" )
 
 		mkdir -p /tmp/build/$branch/$compiler
@@ -133,6 +135,6 @@ for branch in ${branches[@]}; do
 done
 
 # Move finished config files to the final location
-cp -a /tmp/ce/. /app/compiler-explorer/etc/config/
-
-source /app/update-explorer.sh
+cp /tmp/ce/c++.enzyme.properties /app/compiler-explorer/etc/config/
+cp /tmp/ce/c.enzyme.properties /app/compiler-explorer/etc/config/
+cp /tmp/ce/llvm.enzyme.properties /app/compiler-explorer/etc/config/
