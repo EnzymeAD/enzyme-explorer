@@ -13,6 +13,8 @@ for branch in ${branches[@]}; do
    if [ "$HEADHASH" != "$UPSTREAMHASH" ] 
    then
       source /app/build-enzyme.sh
+      source /app/build-enzyme-opt.sh
+      source /app/update-explorer.sh
       exit 0
    else
       echo -e ${FINISHED}Current branch is up to date with origin/$branch.${NOCOLOR}
