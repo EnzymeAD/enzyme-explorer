@@ -12,4 +12,6 @@ source /app/build-enzyme.sh
 
 source /app/build-enzyme-opt.sh
 
+source /app/update-explorer.sh
+
 exec "$@"
