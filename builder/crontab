@@ -1,2 +1,2 @@
 # m h  dom mon dow   command
-*/5 * * * * root /bin/bash /app/check-upstream.sh
+*/5 * * * * /app/check-upstream.sh
