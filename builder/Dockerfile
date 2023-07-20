@@ -41,4 +41,4 @@ WORKDIR /app
 ENV DEBIAN_FRONTEND=
 
 ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["cron","-f", "-l", "2"]
+CMD ["cron","-f", "-L", "2"]
