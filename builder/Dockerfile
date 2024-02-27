@@ -15,12 +15,15 @@ RUN git clone -b main --single-branch --depth 1 https://github.com/compiler-expl
 
 RUN git clone -b main https://github.com/EnzymeAD/Enzyme.git /app/Enzyme
 
+RUN git clone -b main https://github.com/EnzymeAD/Rust.git /app/Rust
+
 RUN ccache -M 10G
 
 COPY install-compilers.sh /app/install-compilers.sh
 COPY install-libraries.sh /app/install-libraries.sh
 COPY build-enzyme.sh /app/build-enzyme.sh
 COPY build-enzyme-opt.sh /app/build-enzyme-opt.sh
+COPY build-enzyme-rust.sh /app/build-enzyme-rust.sh
 COPY check-upstream.sh /app/check-upstream.sh
 COPY entrypoint.sh /app/entrypoint.sh
 COPY update-explorer.sh /app/update-explorer.sh
