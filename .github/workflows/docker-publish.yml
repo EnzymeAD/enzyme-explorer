@@ -19,7 +19,7 @@ jobs:
       IMAGE_NAME: ${{ github.repository }}
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -67,7 +67,7 @@ jobs:
       IMAGE_NAME: ${{ github.repository }}-builder
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
