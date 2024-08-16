@@ -30,10 +30,10 @@ cp /app/compiler-explorer/etc/config/llvm.enzyme.properties /tmp/ce/
 
 for branch in ${branches[@]}; do
 
-	setProperty "group.clang-enzyme-$branch.compilers" "clang11-enzyme-$branch:clang12-enzyme-$branch:clang13-enzyme-$branch:clang14-enzyme-$branch:clang15-enzyme-$branch:clang16-enzyme-$branch:clang17-enzyme-$branch:clang18-enzyme-$branch:clang19-enzyme-$branch" "/tmp/ce/c++.enzyme.properties"
-	setProperty "group.clang-enzyme-$branch.compilers" "cclang11-enzyme-$branch:cclang12-enzyme-$branch:cclang13-enzyme-$branch:cclang14-enzyme-$branch:cclang15-enzyme-$branch:cclang16-enzyme-$branch:cclang17-enzyme-$branch:cclang18-enzyme-$branch:cclang19-enzyme-$branch" "/tmp/ce/c.enzyme.properties"
-    	setProperty "group.clang-enzyme-$branch.compilers" "irclang11-enzyme-$branch:irclang12-enzyme-$branch:irclang13-enzyme-$branch:irclang14-enzyme-$branch:irclang15-enzyme-$branch:irclang16-enzyme-$branch:irclang17-enzyme-$branch:irclang18-enzyme-$branch:irclang19-enzyme-$branch" "/tmp/ce/llvm.enzyme.properties"
-	setProperty "group.opt-enzyme-$branch.compilers" "opt11-enzyme-$branch:opt12-enzyme-$branch:opt13-enzyme-$branch:opt14-enzyme-$branch:opt15-enzyme-$branch:opt16-enzyme-$branch:opt17-enzyme-$branch:opt18-enzyme-$branch:opt19-enzyme-$branch" "/tmp/ce/llvm.enzyme.properties"
+	setProperty "group.clang-enzyme-$branch.compilers" "clang11-enzyme-$branch:clang12-enzyme-$branch:clang13-enzyme-$branch:clang14-enzyme-$branch:clang15-enzyme-$branch:clang16-enzyme-$branch:clang17-enzyme-$branch:clang18-enzyme-$branch:clang20-enzyme-$branch" "/tmp/ce/c++.enzyme.properties"
+	setProperty "group.clang-enzyme-$branch.compilers" "cclang11-enzyme-$branch:cclang12-enzyme-$branch:cclang13-enzyme-$branch:cclang14-enzyme-$branch:cclang15-enzyme-$branch:cclang16-enzyme-$branch:cclang17-enzyme-$branch:cclang18-enzyme-$branch:cclang20-enzyme-$branch" "/tmp/ce/c.enzyme.properties"
+    	setProperty "group.clang-enzyme-$branch.compilers" "irclang11-enzyme-$branch:irclang12-enzyme-$branch:irclang13-enzyme-$branch:irclang14-enzyme-$branch:irclang15-enzyme-$branch:irclang16-enzyme-$branch:irclang17-enzyme-$branch:irclang18-enzyme-$branch:irclang20-enzyme-$branch" "/tmp/ce/llvm.enzyme.properties"
+	setProperty "group.opt-enzyme-$branch.compilers" "opt11-enzyme-$branch:opt12-enzyme-$branch:opt13-enzyme-$branch:opt14-enzyme-$branch:opt15-enzyme-$branch:opt16-enzyme-$branch:opt17-enzyme-$branch:opt18-enzyme-$branch:opt20-enzyme-$branch" "/tmp/ce/llvm.enzyme.properties"
 
 	setProperty "group.clang-enzyme-$branch.intelAsm" "-mllvm --x86-asm-syntax=intel" "/tmp/ce/c++.enzyme.properties"
 	setProperty "group.clang-enzyme-$branch.intelAsm" "-mllvm --x86-asm-syntax=intel" "/tmp/ce/c.enzyme.properties"
@@ -66,7 +66,7 @@ for branch in ${branches[@]}; do
 
 	for compiler in ${compilers[@]}; do
 		version=$(echo $compiler | grep -o -E '[0-9]+|trunk' | head -1 | sed -e 's/^0\+//')
-		if [ "$version" == "trunk" ]; then version="19"; fi
+		if [ "$version" == "trunk" ]; then version="20"; fi
 		semver=$(echo $compiler | sed -e "s/^clang-//" )
 
 		mkdir -p /tmp/build/$branch/$compiler
