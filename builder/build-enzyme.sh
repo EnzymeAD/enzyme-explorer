@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compilers are located under /opt/compiler-explorer/ 
-declare -a compilers=("clang-11.0.1" "clang-12.0.1" "clang-13.0.1" "clang-14.0.0" "clang-15.0.0" "clang-16.0.0" "clang-17.0.1" "clang-18.1.0" "clang-assertions-trunk")
+declare -a compilers=("clang-15.0.0" "clang-16.0.0" "clang-17.0.1" "clang-18.1.0" "clang-assertions-trunk")
 declare -a branches=("main")
 
 # Utility to insert or update key value pairs in .properties files.
@@ -30,10 +30,10 @@ cp /app/compiler-explorer/etc/config/llvm.enzyme.properties /tmp/ce/
 
 for branch in ${branches[@]}; do
 
-	setProperty "group.clang-enzyme-$branch.compilers" "clang11-enzyme-$branch:clang12-enzyme-$branch:clang13-enzyme-$branch:clang14-enzyme-$branch:clang15-enzyme-$branch:clang16-enzyme-$branch:clang17-enzyme-$branch:clang18-enzyme-$branch:clang20-enzyme-$branch" "/tmp/ce/c++.enzyme.properties"
-	setProperty "group.clang-enzyme-$branch.compilers" "cclang11-enzyme-$branch:cclang12-enzyme-$branch:cclang13-enzyme-$branch:cclang14-enzyme-$branch:cclang15-enzyme-$branch:cclang16-enzyme-$branch:cclang17-enzyme-$branch:cclang18-enzyme-$branch:cclang20-enzyme-$branch" "/tmp/ce/c.enzyme.properties"
-    	setProperty "group.clang-enzyme-$branch.compilers" "irclang11-enzyme-$branch:irclang12-enzyme-$branch:irclang13-enzyme-$branch:irclang14-enzyme-$branch:irclang15-enzyme-$branch:irclang16-enzyme-$branch:irclang17-enzyme-$branch:irclang18-enzyme-$branch:irclang20-enzyme-$branch" "/tmp/ce/llvm.enzyme.properties"
-	setProperty "group.opt-enzyme-$branch.compilers" "opt11-enzyme-$branch:opt12-enzyme-$branch:opt13-enzyme-$branch:opt14-enzyme-$branch:opt15-enzyme-$branch:opt16-enzyme-$branch:opt17-enzyme-$branch:opt18-enzyme-$branch:opt20-enzyme-$branch" "/tmp/ce/llvm.enzyme.properties"
+	setProperty "group.clang-enzyme-$branch.compilers" "clang15-enzyme-$branch:clang16-enzyme-$branch:clang17-enzyme-$branch:clang18-enzyme-$branch:clang20-enzyme-$branch" "/tmp/ce/c++.enzyme.properties"
+	setProperty "group.clang-enzyme-$branch.compilers" "cclang15-enzyme-$branch:cclang16-enzyme-$branch:cclang17-enzyme-$branch:cclang18-enzyme-$branch:cclang20-enzyme-$branch" "/tmp/ce/c.enzyme.properties"
+    	setProperty "group.clang-enzyme-$branch.compilers" "irclang15-enzyme-$branch:irclang16-enzyme-$branch:irclang17-enzyme-$branch:irclang18-enzyme-$branch:irclang20-enzyme-$branch" "/tmp/ce/llvm.enzyme.properties"
+	setProperty "group.opt-enzyme-$branch.compilers" "opt15-enzyme-$branch:opt16-enzyme-$branch:opt17-enzyme-$branch:opt18-enzyme-$branch:opt20-enzyme-$branch" "/tmp/ce/llvm.enzyme.properties"
 
 	setProperty "group.clang-enzyme-$branch.intelAsm" "-mllvm --x86-asm-syntax=intel" "/tmp/ce/c++.enzyme.properties"
 	setProperty "group.clang-enzyme-$branch.intelAsm" "-mllvm --x86-asm-syntax=intel" "/tmp/ce/c.enzyme.properties"
@@ -107,33 +107,11 @@ for branch in ${branches[@]}; do
         	setProperty "compiler.irclang$version-enzyme-$branch.options" "-fpass-plugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/llvm.enzyme.properties"
 		setProperty "compiler.opt$version-enzyme-$branch.options" "-load-pass-plugin=/opt/compiler-explorer/$branch/LLVMEnzyme-$version.so -load=/opt/compiler-explorer/$branch/LLVMEnzyme-$version.so -passes=enzyme -opaque-pointers=0 --enzyme-attributor=0" "/tmp/ce/llvm.enzyme.properties"
 
-		elif [ $version -ge 15 ] 
-		then
+		else
 		setProperty "compiler.clang$version-enzyme-$branch.options" "-fpass-plugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c++.enzyme.properties"
         	setProperty "compiler.cclang$version-enzyme-$branch.options" "-fpass-plugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c.enzyme.properties"
         	setProperty "compiler.irclang$version-enzyme-$branch.options" "-fpass-plugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/llvm.enzyme.properties"
 		setProperty "compiler.opt$version-enzyme-$branch.options" "-load-pass-plugin=/opt/compiler-explorer/$branch/LLVMEnzyme-$version.so -load=/opt/compiler-explorer/$branch/LLVMEnzyme-$version.so -enzyme --enzyme-attributor=0" "/tmp/ce/llvm.enzyme.properties"
-
-		elif [ $version -eq 13 ] 
-		then
-		setProperty "compiler.clang$version-enzyme-$branch.options" "-fno-experimental-new-pass-manager -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c++.enzyme.properties"
-       		setProperty "compiler.cclang$version-enzyme-$branch.options" "-fno-experimental-new-pass-manager -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c.enzyme.properties"
-        	setProperty "compiler.irclang$version-enzyme-$branch.options" "-fno-experimental-new-pass-manager  -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/llvm.enzyme.properties"
-		setProperty "compiler.opt$version-enzyme-$branch.options" "--enable-new-pm=0 -load=/opt/compiler-explorer/$branch/LLVMEnzyme-$version.so -enzyme --enzyme-attributor=0" "/tmp/ce/llvm.enzyme.properties"
-		
-		elif [ $version -ge 14 ] 
-		then
-		setProperty "compiler.clang$version-enzyme-$branch.options" "-flegacy-pass-manager -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c++.enzyme.properties"
-        	setProperty "compiler.cclang$version-enzyme-$branch.options" "-flegacy-pass-manager -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c.enzyme.properties"
-        	setProperty "compiler.irclang$version-enzyme-$branch.options" "-flegacy-pass-manager -Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/llvm.enzyme.properties"
-		setProperty "compiler.opt$version-enzyme-$branch.options" "--enable-new-pm=0 -load=/opt/compiler-explorer/$branch/LLVMEnzyme-$version.so -enzyme --enzyme-attributor=0" "/tmp/ce/llvm.enzyme.properties"
-		
-		else
-		setProperty "compiler.clang$version-enzyme-$branch.options" "-Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c++.enzyme.properties"
-        	setProperty "compiler.cclang$version-enzyme-$branch.options" "-Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c.enzyme.properties"
-       		setProperty "compiler.irclang$version-enzyme-$branch.options" "-Xclang -load -Xclang /opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/llvm.enzyme.properties"         
-		setProperty "compiler.opt$version-enzyme-$branch.options" "-load=/opt/compiler-explorer/$branch/LLVMEnzyme-$version.so -enzyme" "/tmp/ce/llvm.enzyme.properties"
-		
 		fi
 
 		setProperty "compiler.clang$version-enzyme-$branch.semver" "$semver" "/tmp/ce/c++.enzyme.properties"
