@@ -6,9 +6,8 @@
 
 /app/infra/bin/ce_install install "compilers/cuda 11.8.0" 
 
-curl -LJO https://github.com/EnzymeAD/rust/releases/download/enzyme-0.0.1/rustc-nightly-x86_64-unknown-linux-gnu.tar.gz 
+curl -LJO https://github.com/EnzymeAD/rust/releases/download/enzyme-0.0.3/rust-nightly-x86_64-unknown-linux-gnu.tar.gz
 mkdir -p /opt/compiler-explorer/rust-nightly-enzyme
-tar -xf rustc-nightly-x86_64-unknown-linux-gnu.tar.gz
-cp -r ./rustc-nightly-x86_64-unknown-linux-gnu/rustc/* /opt/compiler-explorer/rust-nightly-enzyme/
-rm -r rustc-nightly-x86_64-unknown-linux-gnu.tar
-rm rustc-nightly-x86_64-unknown-linux-gnu.tar.gz
+tar -xf rust-nightly-x86_64-unknown-linux-gnu.tar.gz
+./rust-nightly-x86_64-unknown-linux-gnu/install.sh --prefix=/opt/compiler-explorer/rust-nightly-enzyme/
+rm rust-nightly-x86_64-unknown-linux-gnu.tar.gz
