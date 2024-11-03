@@ -101,3 +101,12 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: type=gha,mode=max
+    
+  deploy_enzyme_explorer:
+    name: Deploy Enzyme Explorer
+    runs-on: ubuntu-latest
+    needs: [push_builder_to_registry, push_explorer_to_registry]
+    steps:
+      - name: Call webhook
+        run: curl "https://enzyme-ce.robin-vibe.ts.net/hooks/redeploy-webhook?token=${{ secrets.WEBHOOK_TOKEN }}"
+      
