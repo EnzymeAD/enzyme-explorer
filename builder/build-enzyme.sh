@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compilers are located under /opt/compiler-explorer/ 
-declare -a compilers=("clang-15.0.0" "clang-16.0.0" "clang-17.0.1" "clang-18.1.0" "clang-19-1-0" "clang-assertions-trunk")
+declare -a compilers=("clang-15.0.0" "clang-16.0.0" "clang-17.0.1" "clang-18.1.0" "clang-19.1.0" "clang-assertions-trunk")
 declare -a branches=("main")
 
 # Utility to insert or update key value pairs in .properties files.
