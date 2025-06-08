@@ -25,7 +25,7 @@ COPY check-upstream.sh /app/check-upstream.sh
 COPY entrypoint.sh /app/entrypoint.sh
 COPY update-explorer.sh /app/update-explorer.sh
 COPY crontab /etc/cron.d/crontab
-COPY --from=docker:27.3-dind /usr/local/bin/docker /usr/bin/
+COPY --from=docker:28.2-dind /usr/local/bin/docker /usr/bin/
 
 RUN chmod +x /app/install-libraries.sh \
     && chmod +x /app/install-compilers.sh \

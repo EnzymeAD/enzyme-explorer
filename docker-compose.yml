@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   compiler-explorer:
     image: ghcr.io/enzymead/enzyme-explorer:latest
@@ -53,7 +52,7 @@ services:
         failure_action: rollback
 
   package-proxy:
-    image: nginx:1.27
+    image: nginx:1.28
     deploy:
       mode: global
       update_config:
