@@ -15,7 +15,7 @@ RUN git clone -b main --single-branch --depth 1 https://github.com/compiler-expl
 
 RUN git clone -b main https://github.com/EnzymeAD/Enzyme.git /app/Enzyme
 
-RUN ccache -M 10G
+RUN ccache -M 20G
 
 COPY install-compilers.sh /app/install-compilers.sh
 COPY install-libraries.sh /app/install-libraries.sh
