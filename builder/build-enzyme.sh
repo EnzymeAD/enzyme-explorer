@@ -66,7 +66,7 @@ for branch in ${branches[@]}; do
 
 	for compiler in ${compilers[@]}; do
 		version=$(echo $compiler | grep -o -E '[0-9]+|trunk' | head -1 | sed -e 's/^0\+//')
-		if [ "$version" == "trunk" ]; then version="20"; fi
+		if [ "$version" == "trunk" ]; then version="21"; fi
 		semver=$(echo $compiler | sed -e "s/^clang-//" )
 
 		mkdir -p /tmp/build/$branch/$compiler
