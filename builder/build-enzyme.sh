@@ -102,7 +102,7 @@ for branch in ${branches[@]}; do
 		setProperty "compiler.irclang$version-enzyme-$branch.exe" "/opt/compiler-explorer/$compiler/bin/clang" "/tmp/ce/llvm.enzyme.properties"
 		setProperty "compiler.opt$version-enzyme-$branch.exe" "/opt/compiler-explorer/$compiler/bin/opt" "/tmp/ce/llvm.enzyme.properties"
 
-		setProperty "compiler.cuclang$version-enzyme-$branch.options" "-fplugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/cuda.enzyme.properties"
+		setProperty "compiler.cuclang$version-enzyme-$branch.options" "-fplugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so --cuda-path=/opt/compiler-explorer/cuda/12.1.0 --cuda-gpu-arch=sm_70 --cuda-device-only" "/tmp/ce/cuda.enzyme.properties"
 		setProperty "compiler.clang$version-enzyme-$branch.options" "-fplugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c++.enzyme.properties"
 		setProperty "compiler.cclang$version-enzyme-$branch.options" "-fplugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c.enzyme.properties"
 		setProperty "compiler.irclang$version-enzyme-$branch.options" "-fpass-plugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/llvm.enzyme.properties"
