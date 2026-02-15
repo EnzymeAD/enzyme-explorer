@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compilers are located under /opt/compiler-explorer/ 
-declare -a compilers=("mlir-16.0.0")
+declare -a compilers=("mlir-trunk")
 declare -a branches=("main")
 
 # Utility to insert or update key value pairs in .properties files.
