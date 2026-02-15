@@ -31,7 +31,7 @@ cp /app/compiler-explorer/etc/config/cuda.enzyme.properties /tmp/ce/
 
 for branch in ${branches[@]}; do
 
-	setProperty "group.cuclang.compilers" "cuclang15-enzyme-$branch:cuclang16-enzyme-$branch:cuclang17-enzyme-$branch:cuclang18-enzyme-$branch:cuclang19-enzyme-$branch:cuclang20-enzyme-$branch:cuclang21-enzyme-$branch:cuclang22-enzyme-$branch" "/tmp/ce/cuda.enzyme.properties"
+	setProperty "group.cuclang-enzyme-$branch.compilers" "cuclang15-enzyme-$branch:cuclang16-enzyme-$branch:cuclang17-enzyme-$branch:cuclang18-enzyme-$branch:cuclang19-enzyme-$branch:cuclang20-enzyme-$branch:cuclang21-enzyme-$branch:cuclang22-enzyme-$branch" "/tmp/ce/cuda.enzyme.properties"
 	
 	setProperty "group.clang-enzyme-$branch.compilers" "clang15-enzyme-$branch:clang16-enzyme-$branch:clang17-enzyme-$branch:clang18-enzyme-$branch:clang19-enzyme-$branch:clang20-enzyme-$branch:clang21-enzyme-$branch:clang22-enzyme-$branch" "/tmp/ce/c++.enzyme.properties"
 	
@@ -45,12 +45,13 @@ for branch in ${branches[@]}; do
 	setProperty "group.clang-enzyme-$branch.intelAsm" "-mllvm --x86-asm-syntax=intel" "/tmp/ce/c.enzyme.properties"
 	setProperty "group.clang-enzyme-$branch.intelAsm" "-mllvm --x86-asm-syntax=intel" "/tmp/ce/llvm.enzyme.properties"
 
-	setProperty "group.cuclang.compilerType" "clang-cuda" "/tmp/ce/cuda.enzyme.properties"
+	setProperty "group.cuclang-enzyme-$branch.compilerType" "clang-cuda" "/tmp/ce/cuda.enzyme.properties"
 	setProperty "group.clang-enzyme-$branch.compilerType" "clang" "/tmp/ce/c++.enzyme.properties"
 	setProperty "group.clang-enzyme-$branch.compilerType" "clang" "/tmp/ce/c.enzyme.properties"
    	setProperty "group.clang-enzyme-$branch.compilerType" "clang" "/tmp/ce/llvm.enzyme.properties"
 	setProperty "group.opt-enzyme-$branch.compilerType" "opt" "/tmp/ce/llvm.enzyme.properties"
 
+   	setProperty "group.cuclang-enzyme-$branch.supportsExecute" "false" "/tmp/ce/cuda.enzyme.properties"
    	setProperty "group.clang-enzyme-$branch.supportsExecute" "true" "/tmp/ce/c++.enzyme.properties"
   	setProperty "group.clang-enzyme-$branch.supportsExecute" "true" "/tmp/ce/c.enzyme.properties"
 	setProperty "group.clang-enzyme-$branch.supportsExecute" "true" "/tmp/ce/llvm.enzyme.properties"	
@@ -102,7 +103,7 @@ for branch in ${branches[@]}; do
 		setProperty "compiler.irclang$version-enzyme-$branch.exe" "/opt/compiler-explorer/$compiler/bin/clang" "/tmp/ce/llvm.enzyme.properties"
 		setProperty "compiler.opt$version-enzyme-$branch.exe" "/opt/compiler-explorer/$compiler/bin/opt" "/tmp/ce/llvm.enzyme.properties"
 
-		setProperty "compiler.cuclang$version-enzyme-$branch.options" "-fplugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so --cuda-path=/opt/compiler-explorer/cuda/12.1.0 --cuda-gpu-arch=sm_70 --cuda-device-only" "/tmp/ce/cuda.enzyme.properties"
+		setProperty "compiler.cuclang$version-enzyme-$branch.options" "-fplugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/cuda.enzyme.properties"
 		setProperty "compiler.clang$version-enzyme-$branch.options" "-fplugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c++.enzyme.properties"
 		setProperty "compiler.cclang$version-enzyme-$branch.options" "-fplugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/c.enzyme.properties"
 		setProperty "compiler.irclang$version-enzyme-$branch.options" "-fpass-plugin=/opt/compiler-explorer/$branch/ClangEnzyme-$version.so" "/tmp/ce/llvm.enzyme.properties"
