@@ -27,10 +27,12 @@ cp /app/compiler-explorer/etc/config/mlir.enzyme.properties /tmp/ce/
 
 
 for branch in ${branches[@]}; do
+	# Checkout Enzyme
+	git -C /app/Enzyme checkout $branch
+	git -C /app/Enzyme fetch
+	git -C /app/Enzyme reset --hard origin/$branch
 
-	setProperty "group.enzyme-opt-$branch.compilers" "enzyme-opt16-$branch" "/tmp/ce/mlir.enzyme.properties"
-	setProperty "group.enzyme-opt-$branch.isSemVer" "true" "/tmp/ce/mlir.enzyme.properties"
-	setProperty "group.enzyme-opt-$branch.groupName" "enzyme-opt ($branch)" "/tmp/ce/mlir.enzyme.properties"
+	commit=$(git -C /app/Enzyme rev-parse --short=7 HEAD)
 
 	for compiler in ${compilers[@]}; do
 		version=$(echo $compiler | grep -o -E '[0-9]+|trunk' | head -1 | sed -e 's/^0\+//')
@@ -38,13 +40,6 @@ for branch in ${branches[@]}; do
 
 		mkdir -p /tmp/build/$branch/$compiler
  		
-		# Checkout Enzyme
-		git -C /app/Enzyme checkout $branch
-		git -C /app/Enzyme fetch
-		git -C /app/Enzyme reset --hard origin/$branch
-
-		commit=$(git -C /app/Enzyme rev-parse --short=7 HEAD)
-
 		# Build enzyme-opt
 		cmake -G Ninja -B /tmp/build/$branch/$compiler -S /app/Enzyme/enzyme -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DLLVM_DIR=/opt/compiler-explorer/$compiler/lib/cmake/llvm -DENZYME_MLIR=ON
 		
@@ -55,9 +50,6 @@ for branch in ${branches[@]}; do
 		
 		cp /tmp/build/$branch/$compiler/Enzyme/MLIR/enzymemlir-opt /opt/compiler-explorer/$branch/enzyme-opt$version
 
-		setProperty "compiler.enzyme-opt$version-$branch.exe" "/opt/compiler-explorer/$branch/enzyme-opt$version" "/tmp/ce/mlir.enzyme.properties"
-		setProperty "compiler.enzyme-opt$version-$branch.semver" "$semver" "/tmp/ce/mlir.enzyme.properties"
-		setProperty "compiler.enzyme-opt$version-$branch.options" "--enzyme" "/tmp/ce/mlir.enzyme.properties"
 		setProperty "compiler.enzyme-opt$version-$branch.name" "enzyme-opt $version ($commit)" "/tmp/ce/mlir.enzyme.properties"
 	done
 done
