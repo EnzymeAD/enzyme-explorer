@@ -1,6 +1,6 @@
 services:
   compiler-explorer:
-    image: ghcr.io/enzymead/compiler-explorer-builder:main
+    image: ghcr.io/enzymead/compiler-explorer-builder-frontend:main
     ports:
       - "80:10240"
     volumes:
@@ -37,7 +37,7 @@ services:
        start_period: 180s
 
   compiler-builder:
-    image: ghcr.io/enzymead/enzyme-explorer-builder:latest
+    image: ghcr.io/enzymead/compiler-explorer-builder-builder:latest
     volumes:
       - type: volume
         source: config
