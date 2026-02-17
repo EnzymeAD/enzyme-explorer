@@ -10,7 +10,7 @@ services:
         read_only: true
       - type: volume
         source: compilers
-        target: /opt/compiler-explorer/main
+        target: /opt/compiler-explorer
         read_only: true
       - type: volume
         source: juliapackages
@@ -44,7 +44,7 @@ services:
         target: /app/compiler-explorer/etc/config
       - type: volume
         source: compilers
-        target: /opt/compiler-explorer/main
+        target: /opt/compiler-explorer
       - "/var/run/docker.sock:/var/run/docker.sock"
     deploy:
       mode: global
